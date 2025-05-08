@@ -11,7 +11,7 @@ def get_todos():
         'id': todo.id, 
         'content': todo.content, 
         'completed': todo.completed
-        } for todo in todos])
+        } for todo in todos]), 200
 
 @todos_bp.route('/todos/', methods=['POST'])
 def create_todo():
@@ -27,7 +27,11 @@ def create_todo():
 
 @todos_bp.route('/todos/<int:id>', methods=['DELETE'])
 def delete_todo(id):
-    todo = Todo.query.get_or_404(id)
+    todo = db.session.get(Todo, id)
+    if not todo:
+        return jsonify({
+            'message': 'Todo not found'
+        }), 404
     db.session.delete(todo)
     db.session.commit()
     return jsonify({
@@ -36,7 +40,11 @@ def delete_todo(id):
 
 @todos_bp.route('/todos/<int:id>/toggle-completed', methods=['PUT'])
 def toggle_todo(id):
-    todo = Todo.query.get_or_404(id)
+    todo = db.session.get(Todo, id)
+    if not todo:
+        return jsonify({
+            'message': 'Todo not found'
+        }), 404
     todo.completed = not todo.completed
     db.session.commit()
     return jsonify({

@@ -21,8 +21,10 @@ auth_bp.register_blueprint(google_bp, url_prefix="/google_login")
 @auth_bp.route('/login')
 def login():
     return '''
-        <a href="/auth/github_login">Login with GitHub</a>
-        <a href="/auth/google_login">Login with Google</a>
+        <div class="container" style="text-align: center; margin-top: 50px;">
+            <a href="/auth/github_login">Login with GitHub</a>
+            <a href="/auth/google_login">Login with Google</a>
+        </div>
     '''
 
 @auth_bp.route('/github_login')
