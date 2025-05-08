@@ -4,7 +4,7 @@ from app.extensions import db
 
 todos_bp = Blueprint('todos',__name__)
 
-@todos_bp.route('/todos', methods=['GET'])
+@todos_bp.route('/todos/', methods=['GET'])
 def get_todos():
     todos = Todo.query.all()
     return jsonify([{
@@ -13,7 +13,7 @@ def get_todos():
         'completed': todo.completed
         } for todo in todos])
 
-@todos_bp.route('/todos', methods=['POST'])
+@todos_bp.route('/todos/', methods=['POST'])
 def create_todo():
     data = request.get_json()
     todo = Todo(content=data['content'])
