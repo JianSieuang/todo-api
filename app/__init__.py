@@ -2,7 +2,7 @@ from flask import Flask
 from config import Config
 from app.extensions import db
 from app.routes.todos import todos_bp
-from app.routes.auth import auth_bp, github_bp
+from app.routes.auth import auth_bp
 
 def create_app():
     app = Flask(__name__)
